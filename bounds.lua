@@ -1,10 +1,26 @@
 --
---  rebound as softcut
---                  controller
---              yay!
+-- bounds
 --
+-- stereo delay/looper with
+-- probablistic kinetic sequencer
 --
---  docs to follow
+-- k1 = shift
+-- k2 = add ball
+-- k3 = change selected ball
+-- shift + k2 = remove ball
+--
+-- e2 = rotate ball
+-- e3 = ball speed
+-- shift + e1 = probability -
+--      for the selected ball
+-- shift + e2-3 = feedback l/r
+--
+-- there are many parameters
+-- to play with, and 4 LFO's 
+--
+-- many thanks to @enneff
+-- for making rebound.
+--
 -- v0.1
 
 local sc = include("otis/lib/tlps")
