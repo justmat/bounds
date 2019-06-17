@@ -1,5 +1,5 @@
 # bounds v0.1
-delay/looper with probabilistic kinetic sequencing
+stereo delay/looper with probabilistic kinetic sequencing
 
 a mashup of @enneff's [Rebound](https://github.com/nf/rebound) and my [Otis](https://github.com/notjustmat/otis).
 
@@ -22,3 +22,6 @@ the nature of this event is determined by the x, y coordinates of the collision.
 
 ![bounds.png](assets/bounds.png)
 
+* speed mod = currently a random choice of either half speed, or full speed. likely to change in the future.
+* flip = change tape direction, maintaining speed.
+* skip = reset loop
