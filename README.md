@@ -5,6 +5,8 @@ a mashup of @enneff's [Rebound](https://github.com/nf/rebound) and my [Otis](htt
 
 _nb: bounds requires otis to be installed at dust/code/otis_
 
+## controls
+
 * key1 = shift
 * key2 = add ball
 * key3 = select ball
