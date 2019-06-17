@@ -1,7 +1,7 @@
-# bounds
+# bounds v0.1
 delay/looper with probabilistic kinetic sequencing
 
-the kinetic sequencer was coded by @enneff
+a mashup of @enneff's Rebound and my Otis.
 
 _nb: bounds requires otis to be installed at dust/code/otis_
 
