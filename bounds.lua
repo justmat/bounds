@@ -23,6 +23,7 @@
 -- @zebra for softcut.
 --
 -- v0.1 @justmat
+-- https://llllllll.co/t/23336
 
 local sc = include("otis/lib/tlps")
 local lfo = include("otis/lib/hnds")
