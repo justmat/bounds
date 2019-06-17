@@ -19,9 +19,10 @@
 -- to play with, and 4 LFO's 
 --
 -- many thanks to @enneff
--- for making rebound.
+-- for making rebound, and
+-- @zebra for softcut.
 --
--- v0.1
+-- v0.1 @justmat
 
 local sc = include("otis/lib/tlps")
 local lfo = include("otis/lib/hnds")
