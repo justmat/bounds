@@ -24,6 +24,8 @@
 -- v0.1
 
 local sc = include("otis/lib/tlps")
+sc.file_path = "/home/we/dust/audio/tape/bounds."
+
 local lfo = include("otis/lib/hnds")
 
 -- for lib hnds
