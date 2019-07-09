@@ -1,9 +1,12 @@
-# bounds
-delay/looper with probabilistic kinetic sequencing
+# bounds v0.1
+stereo delay/looper with probabilistic kinetic sequencing
 
-the kinetic sequencer was coded by @enneff
+a mashup of @enneff's [Rebound](https://github.com/nf/rebound) and my [Otis](https://github.com/notjustmat/otis).
+join the conversation on [lines](https://llllllll.co/t/23336)
 
 _nb: bounds requires otis to be installed at dust/code/otis_
+
+## controls
 
 * key1 = shift
 * key2 = add ball
@@ -17,8 +20,11 @@ _nb: bounds requires otis to be installed at dust/code/otis_
 
 ## balls
 
-depending on your probability settings, when a ball collides with the edge of the screen an event will occur.
-the nature of the event is determined by the x, y coordinates of the collision. the bounds are pictured bellow.
+depending on your probability settings, when a ball collides with the edge of the screen an event may occur.
+the nature of this event is determined by the x, y coordinates of the collision. the bounds are pictured bellow.
 
 ![bounds.png](assets/bounds.png)
 
+* speed mod = currently a random choice of either half speed, or full speed. likely to change in the future.
+* flip = change tape direction, maintaining speed.
+* skip = reset loop
