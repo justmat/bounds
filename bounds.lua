@@ -277,9 +277,9 @@ function redraw()
     screen.text("R : " .. params:get("2feedback"))
     screen.move(64, 16)
     if #balls > 0 then
-      screen.text_center("prob : " .. balls[cur_ball].prob .. "%")
+      screen.text_center("ball ".. cur_ball .. " prob : " .. balls[cur_ball].prob .. "%")
     else
-      screen.text_center("prob :  -")
+      screen.text_center("ball - prob :  -")
     end
     screen.move(64, 52)
     screen.text_center(buffer_hold and "held" or "recording...")
