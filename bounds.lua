@@ -8,6 +8,7 @@
 -- k2 = add ball
 -- k3 = change selected ball
 -- shift + k2 = remove ball
+-- shift + k3 = hold buffer
 --
 -- e2 = rotate ball
 -- e3 = ball speed
