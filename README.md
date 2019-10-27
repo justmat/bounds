@@ -1,4 +1,4 @@
-# bounds v0.1
+# bounds v0.2
 stereo delay/looper with probabilistic kinetic sequencing
 
 a mashup of @enneff's [Rebound](https://github.com/nf/rebound) and my [Otis](https://github.com/notjustmat/otis).
@@ -12,6 +12,7 @@ _nb: bounds requires otis to be installed at dust/code/otis_
 * key2 = add ball
 * key3 = select ball
 * shift + key2 = remove ball
+* shift + key3 = hold buffer
 
 * enc2 = rotate ball
 * enc3 = ball speed
