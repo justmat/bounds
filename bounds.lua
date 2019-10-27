@@ -46,6 +46,7 @@ local current_spd = {1, 1}
 local spds = {.5, 1}
 local shift = false
 local buffer_hold = false
+local start_time = 0
 
 
 local function set_hold()
@@ -97,6 +98,7 @@ end
 
 
 function init()
+  start_time = util.time()
   -- set up tlps/softcut
   sc.init()
   -- set hnds/lfos
@@ -253,7 +255,12 @@ end
 
 function redraw()
   screen.clear()
-  
+  if util.time() - start_time < 2 then
+    screen.font_size(32)
+    screen.level(4)
+    screen.move(64, 42)
+    screen.text_center("bounds")
+  end
   if shift then
     -- draw bounds
     screen.level(4)
