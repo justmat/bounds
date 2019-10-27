@@ -25,7 +25,7 @@
 -- v0.1 @justmat
 -- https://llllllll.co/t/23336
 
-local sc = include("otis/lib/tlps")
+local sc = include("lib/tlps_bounds")
 sc.file_path = "/home/we/dust/audio/tape/bounds."
 
 local lfo = include("otis/lib/hnds")
@@ -35,21 +35,24 @@ local lfo_targets ={
   "none",
   "1vol",
   "2vol",
-  "1pan",
-  "2pan",
   "1feedback",
   "2feedback"
 }
 
-
 local balls = {}
 local cur_ball = 0
-
+local current_spd = {1, 1}
 local spds = {.5, 1}
-
 local shift = false
-local rec1 = true
-local rec2 = true
+local buffer_hold = false
+
+
+local function set_hold()
+  -- softcut rec on/off based on buffer_hold
+  for i = 1, 2 do
+    softcut.rec(i, buffer_hold and 0 or 1)
+  end
+end
 
 
 local function skip(n)
@@ -61,30 +64,21 @@ end
 
 local function flip(n)
   -- flip tape direction
-  local spd = params:get(n .. "speed")
+  local spd = current_spd[n]
   spd = -spd
-  params:set(n .. "speed", spd)
-end
-
-
-local function set_rec()
-  if rec1 then
-    softcut.rec(1, 0)
-  else softcut.rec(1, 1) end
-  
-  if rec2 then
-    softcut.rec(2, 0)
-  else softcut.rec(2, 1) end
+  softcut.rate(n, spd)
+  current_spd[n] = spd
 end
   
 
 local function set_spd(n)
   local rand = math.random(2)
-  local speed = spds[rand]
+  local speed = params:get(n .. "speed") * spds[rand]
   if params:get(n .. "speed") < 0 then
     speed = -speed
   end
-  params:set(n .. "speed", speed)
+  softcut.rate(n, speed)
+  current_spd[n] = speed
 end
 
 
@@ -94,7 +88,7 @@ function lfo.process()
     local target = params:get(i .. "lfo_target")
 
     if params:get(i .. "lfo") == 2 then
-      -- left/right volume, panning, and feedback.
+      -- left/right volume and feedback.
       params:set(lfo_targets[target], lfo.scale(lfo[i].slope, -1.0, 1.0, params:get(i .. "lfo_min"), params:get(i .. "lfo_max")) * 0.01)
     end
   end
@@ -164,24 +158,28 @@ end
 
 
 function key(n, z)
-  if n == 1 then
-    -- shift
-    shift = z == 1
-  elseif n == 2 and z == 1 then
-    if shift then
-      -- remove ball
+  -- shift
+  if n == 1 then shift = z == 1 end
+
+  if shift then
+    if n == 2 and z == 1 then
       table.remove(balls, cur_ball)
       if cur_ball > #balls then
         cur_ball = #balls
       end
-    else
+    elseif n == 3 and z == 1 then
+      buffer_hold = not buffer_hold
+      set_hold()
+    end
+  else
+    if n == 2 and z == 1 then
       -- add ball
       table.insert(balls, newball())
       cur_ball = #balls
+    elseif n == 3 and z == 1 and #balls > 0 then
+      -- select next ball
+      cur_ball = cur_ball % #balls + 1
     end
-  elseif n == 3 and z == 1 and #balls > 0 then
-    -- select next ball
-    cur_ball = cur_ball % #balls + 1
   end
 end
 
@@ -254,22 +252,36 @@ end
 
 function redraw()
   screen.clear()
+  
   if shift then
-    screen.level(5)
+    -- draw bounds
+    screen.level(4)
     screen.line_width(1)
     screen.rect(1, 1, 126, 62)
     screen.stroke()
-    
+    -- draw loop info
+    screen.level(1)
+    screen.move(8, 30)
+    screen.font_size(8)
+    screen.text("spd: ")
+    screen.move(40, 30)
+    screen.text( "L : ".. current_spd[1])
+    screen.move(8, 40)
+    screen.text("fbk: ")
+    screen.move(40, 40)
+    screen.text("L : " .. params:get("1feedback"))
+    screen.move(88, 30)
+    screen.text("R : " .. current_spd[2])
+    screen.move(88, 40)
+    screen.text("R : " .. params:get("2feedback"))
     screen.move(64, 16)
     if #balls > 0 then
       screen.text_center("prob : " .. balls[cur_ball].prob .. "%")
     else
       screen.text_center("prob :  -")
     end
-    screen.move(64, 32)
-    screen.text_center("fdbk L : " .. params:get("1feedback"))
-    screen.move(64, 48)
-    screen.text_center("fdbk R : " .. params:get("2feedback"))
+    screen.move(64, 52)
+    screen.text_center(buffer_hold and "held" or "recording...")
   end
   for i=1,#balls do
     drawball(balls[i], i == cur_ball)
