@@ -22,7 +22,7 @@
 -- for making rebound, and
 -- @zebra for softcut.
 --
--- v0.1 @justmat
+-- v0.2 @justmat
 -- https://llllllll.co/t/23336
 
 local sc = include("lib/tlps_bounds")
