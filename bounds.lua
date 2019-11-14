@@ -91,7 +91,7 @@ function lfo.process()
 
     if params:get(i .. "lfo") == 2 then
       -- left/right volume and feedback.
-      params:set(lfo_targets[target], lfo.scale(lfo[i].slope, -1.0, 1.0, params:get(i .. "lfo_min"), params:get(i .. "lfo_max")) * 0.01)
+      params:set(lfo_targets[target], lfo[i].slope)
     end
   end
 end
