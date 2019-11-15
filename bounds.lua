@@ -36,6 +36,8 @@ local lfo_targets ={
   "none",
   "1vol",
   "2vol",
+  "1pan",
+  "2pan",
   "1feedback",
   "2feedback"
 }
