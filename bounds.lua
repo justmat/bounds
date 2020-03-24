@@ -29,7 +29,7 @@
 local sc = include("lib/tlps_bounds")
 sc.file_path = "/home/we/dust/audio/tape/bounds."
 
-local lfo = include("otis/lib/hnds")
+local lfo = include("lib/hnds_bounds")
 
 -- for lib hnds
 local lfo_targets ={
@@ -45,7 +45,7 @@ local lfo_targets ={
 local balls = {}
 local cur_ball = 0
 local current_spd = {1, 1}
-local spds = {.5, 1}
+local spds = {.5, .6703, 1, 1.49831}
 local shift = false
 local buffer_hold = false
 local start_time = 0
@@ -76,8 +76,8 @@ end
   
 
 local function set_spd(n)
-  local rand = math.random(2)
-  local speed = params:get(n .. "speed") * spds[rand]
+  local rand = math.random(4)
+  local speed = --[[params:get(n .. "speed") *]] spds[rand]
   if params:get(n .. "speed") < 0 then
     speed = -speed
   end
@@ -107,6 +107,8 @@ function init()
   for i = 1, 4 do
     lfo[i].lfo_targets = lfo_targets
   end
+  params:add_separator("modulation")
+  --params:add_group("lfo's", 28)
   lfo.init()
 
   screen.aa(1)
@@ -118,6 +120,11 @@ function init()
   u:start()
 
   softcut.buffer_clear()
+  -- save buffer to disk
+  params:add_separator()
+  params:add_trigger("write_to_tape", "write buffers to tape")
+  params:set_action("write_to_tape", function() sc.write_buffers() end)
+  
   params:bang()
 end
 
@@ -275,20 +282,20 @@ function redraw()
     screen.font_size(8)
     screen.text("spd: ")
     screen.move(40, 30)
-    screen.text( "L : ".. current_spd[1])
+    screen.text( "L: ".. string.format("%.3f", current_spd[1]))
     screen.move(8, 40)
     screen.text("fbk: ")
     screen.move(40, 40)
-    screen.text("L : " .. params:get("1feedback"))
+    screen.text("L: " .. params:get("1feedback"))
     screen.move(88, 30)
-    screen.text("R : " .. current_spd[2])
+    screen.text("R: " .. string.format("%.3f", current_spd[2]))
     screen.move(88, 40)
-    screen.text("R : " .. params:get("2feedback"))
+    screen.text("R: " .. params:get("2feedback"))
     screen.move(64, 16)
     if #balls > 0 then
-      screen.text_center("ball ".. cur_ball .. " prob : " .. balls[cur_ball].prob .. "%")
+      screen.text_center("ball ".. cur_ball .. " prob: " .. balls[cur_ball].prob .. "%")
     else
-      screen.text_center("ball - prob :  -")
+      screen.text_center("ball - prob:  -")
     end
     screen.move(64, 52)
     screen.text_center(buffer_hold and "held" or "recording...")
