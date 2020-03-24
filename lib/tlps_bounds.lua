@@ -110,43 +110,43 @@ function sc.init()
   for i = 1, 2 do
     params:add_group(i == 1 and "left" or "right", 13)
     -- l/r volume controls
-    params:add_control(i .. "vol", i .. " vol", controlspec.new(0, 1, "lin", 0, 1, ""))
+    params:add_control(i .. "vol", "vol", controlspec.new(0, 1, "lin", 0, 1, ""))
     params:set_action(i .. "vol", function(x) softcut.level(i, x) end)
     -- tape speed controls
-    params:add_control(i .. "speed", i .. " speed", controlspec.new(-4, 4, "lin", 0.01, 1, ""))
+    params:add_control(i .. "speed", "speed", controlspec.new(-4, 4, "lin", 0.01, 1, ""))
     params:set_action(i .. "speed", function(x) softcut.rate(i, x) end)
     -- tape speed slew controls
-    params:add_control(i .. "speed_slew", i .. " speed slew", controlspec.new(0, 1, "lin", 0, 0.1, ""))
+    params:add_control(i .. "speed_slew", "speed slew", controlspec.new(0, 1, "lin", 0, 0.1, ""))
     params:set_action(i .. "speed_slew", function(x) softcut.rate_slew_time(i, x) end)
     -- tape start controls
-    params:add_control(i .. "loop_start", i .. " loop start", controlspec.new(0.0, 59.99, "lin", .01, 0, "secs"))
+    params:add_control(i .. "loop_start", "loop start", controlspec.new(0.0, 59.99, "lin", .01, 0, "secs"))
     params:set_action(i .. "loop_start", function(x) set_loop_start(i, x) end)
     -- tape length controls
-    params:add_control(i .. "loop_end", i .. " loop end", controlspec.new(.25, 60, "lin", .01, 2, "secs"))
+    params:add_control(i .. "loop_end", "loop end", controlspec.new(.25, 60, "lin", .01, 2, "secs"))
     params:set_action(i .. "loop_end", function(x) softcut.loop_end(i, x) end)
     -- feedback controls
-    params:add_control(i .. "feedback", i .. " feedback", controlspec.new(0, 1, "lin", 0, .75, ""))
+    params:add_control(i .. "feedback", "feedback", controlspec.new(0, 1, "lin", 0, .75, ""))
     params:set_action(i .. "feedback", function(x) softcut.pre_level(i, x) end)
     -- pan controls
-    params:add_control(i .. "pan", i .. " pan", controlspec.new(-1.0, 1.0, "lin", 0.01, i == 1 and -.5 or .5, ""))
+    params:add_control(i .. "pan", "pan", controlspec.new(-1.0, 1.0, "lin", 0.01, i == 1 and -.5 or .5, ""))
     params:set_action(i .. "pan", function(x) softcut.pan(i, x) end)
     -- pan slew controls
-    params:add_control(i .. "pan_slew", i.. " pan slew", controlspec.new(0, 1, "lin", 0.01, 0, ""))
+    params:add_control(i .. "pan_slew", "pan slew", controlspec.new(0, 1, "lin", 0.01, 0, ""))
     params:set_action(i .. "pan_slew", function(x) softcut.pan_slew_time(i, x) end)
     -- filter cut off
-    params:add_control(i .. "filter_cutoff", i .. " filter cutoff", controlspec.new(10, 12000, 'exp', 1, 12000, "Hz"))
+    params:add_control(i .. "filter_cutoff", "filter cutoff", controlspec.new(10, 12000, 'exp', 1, 12000, "Hz"))
     params:set_action(i .. "filter_cutoff", function(x) softcut.post_filter_fc(i, x) softcut.pre_filter_fc(i, x) end)
     -- low pass
-    params:add_control(i .. "low_pass", i .. " low pass", controlspec.new(0, 1, 'lin', 0, 0, ""))
+    params:add_control(i .. "low_pass", "low pass", controlspec.new(0, 1, 'lin', 0, 0, ""))
     params:set_action(i .. "low_pass", function(x) softcut.post_filter_lp(i, x) softcut.pre_filter_lp(i, x) end)
     -- high pass
-    params:add_control(i .. "high_pass", i .. " high pass", controlspec.new(0, 1, 'lin', 0, 0, ""))
+    params:add_control(i .. "high_pass", "high pass", controlspec.new(0, 1, 'lin', 0, 0, ""))
     params:set_action(i .. "high_pass", function(x) softcut.post_filter_hp(i, x) softcut.pre_filter_hp(i, x) end)
     -- filter q
-    params:add_control(i .. "filter_q", i .. " filter q", controlspec.new(0.0005, 8.0, 'exp', 0, 5.0, ""))
+    params:add_control(i .. "filter_q","filter q", controlspec.new(0.0005, 8.0, 'exp', 0, 5.0, ""))
     params:set_action(i .. "filter_q", function(x) softcut.post_filter_rq(i, x) softcut.pre_filter_rq(i, x) end)
     -- dry signal
-    params:add_control(i .. "dry_signal", i .. " dry signal", controlspec.new(0, 1, 'lin', 0, 1, ""))
+    params:add_control(i .. "dry_signal", "dry signal", controlspec.new(0, 1, 'lin', 0, 1, ""))
     params:set_action(i .. "dry_signal", function(x) softcut.filter_dry(i, x) end)
   end
 end
