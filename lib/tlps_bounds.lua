@@ -98,7 +98,7 @@ function sc.init()
   params:add_option("input", "input", {"stereo", "mono (L)"}, 1)
   params:set_action("input", function(x) sc.set_input(x) end)
   -- input level
-  params:add_control("input_level", "input level", controlspec.new(0, 1, "lin", 0, 0.7))
+  params:add_control("input_volume", "input volume", controlspec.new(0, 1, "lin", 0, 0.7))
   params:set_action("input_level", function(x) audio.level_adc_cut(x) end)
   -- engine level
   --params:add_control("engine_level", "engine level", controlspec.new(0, 1, "lin", 0, 0))
