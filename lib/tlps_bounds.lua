@@ -95,8 +95,8 @@ function sc.init()
   end
   params:add_separator()
   -- input
-  params:add_option("input", "input", {"stereo", "mono (L)"}, 1)
-  params:set_action("input", function(x) sc.set_input(x) end)
+  params:add_option("in", "in", {"stereo", "mono (L)"}, 1)
+  params:set_action("in", function(x) sc.set_input(x) end)
   -- input level
   params:add_control("in_volume", "in volume", controlspec.new(0, 1, "lin", 0, 1))
   params:set_action("in_level", function(x) audio.level_adc_cut(x) end)
